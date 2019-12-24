@@ -2,4 +2,4 @@ Raspberry Pi/gpio_ctrl.js
 Raspberry Pi/node_modules/
 Raspberry Pi/package-lock.json
 Raspberry Pi/serviceAccountKey.json
-
+.DS_Store
