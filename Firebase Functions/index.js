@@ -19,28 +19,36 @@ exports.relay = functions.https.onRequest((request, response) => {
     console.log(params);
 
 
-    var fanspeed = parseInt(params['percentage']);
+    var fanspeed = parseInt(params['fanspeed']);
+    var activate = parseInt(params['activate']);
+    var deactivate = parseInt(params['deactivate']);
+    var number = parseInt(params['number']);
 
-    console.log("Param 1 = " + params['activate']);
-    console.log("Param 2 = " + params['number']);
-    console.log("Param 3 = " + params['deactivate']);
+    console.log("activate = " + params['activate']);
+    console.log("deactivate = " + params['deactivate']);
     console.log("fanspeed = " + fanspeed);
 
-
-    if(params['number'] == 1){
-        outstr = "Fan 1 is controlled";
+    if(activate == 1){
+        outstr = "電扇開始運轉";
     }
-    else if(params['number'] == 2){
-        outstr = "Fan 2 is controlled";
+    else if(deactivate == 0){
+        outstr = "電扇停止運轉";
+    }
+    else if(fanspeed == 1){
+        outstr = "電扇設定為風速 1 ";
+    }
+    else if(fanspeed == 2){
+        outstr = "電扇設定為風速 2";
+    }
+    else if(fanspeed == 3){
+            outstr = "電扇設定為風速 3";
+    }
+    else if(number > 3 ){
+        outstr = "此電扇目前沒有支援風速 ＝ " + number;
     }
     else{
-        outstr = "The Fan is ready for control"
+        outstr = "電扇已經可以控制了"
     }
-
-    if(fanspeed > 0){
-        outstr = outstr + " In Fan Speed " + params['percentage'];
-    }
-    
 
     database.ref().set(params);
 
