@@ -47,24 +47,29 @@ ref.on('value', function (snapshot) {
 
 	if(entitiesFromAssistant[ACTIVATE] == '1'){
 		ONOFF.writeSync(1);
+		console.log("The Fan is on");
 	}
 	else if(entitiesFromAssistant[DEACTIVATE] == '0'){
 		ONOFF.writeSync(0);
+		console.log("The Fan is off");
 	}
 	else if(entitiesFromAssistant[FANSPEED] == '1'){
 		SPEED1.writeSync(1);
 		SPEED2.writeSync(0);
 		SPEED3.writeSync(0);
+		console.log("Setup the FAN speed 1");
 	}
 	else if(entitiesFromAssistant[FANSPEED] == '2'){
 		SPEED1.writeSync(0);
 		SPEED2.writeSync(1);
 		SPEED3.writeSync(0);
+		console.log("Setup the FAN speed 2");
 	}
 	else if(entitiesFromAssistant[FANSPEED] == '3'){
 		SPEED1.writeSync(0);
 		SPEED2.writeSync(0);
 		SPEED3.writeSync(1);
+		console.log("Setup the FAN speed 3");
 	}
 
 
