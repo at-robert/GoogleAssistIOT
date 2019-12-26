@@ -92,7 +92,7 @@ exports.relay = functions.https.onRequest((request, response) => {
     else if(fanspeed == 2){
         if(deactivate_db == 0){
             outstr = "電扇已經停止運轉,開啟電扇並設定為風速2";
-            database.ref('/activate').set('2');
+            database.ref('/activate').set('1');
             database.ref('/deactivate').set('');
             database.ref('/fanspeed').set(2);
         }
@@ -104,7 +104,7 @@ exports.relay = functions.https.onRequest((request, response) => {
     else if(fanspeed == 3){
         if(deactivate_db == 0){
             outstr = "電扇已經停止運轉,開啟電扇並設定為風速3";
-            database.ref('/activate').set('3');
+            database.ref('/activate').set('1');
             database.ref('/deactivate').set('');
             database.ref('/fanspeed').set(3);
         }
