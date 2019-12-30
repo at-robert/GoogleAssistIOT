@@ -8,7 +8,7 @@ var Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
 var ONOFF = new Gpio(26, 'out');
 var SPEED1 = new Gpio(5, 'out');
 var SPEED2 = new Gpio(6, 'out');
-var SPEED3 = new Gpio(21, 'out');
+var SPEED3 = new Gpio(13, 'out');
 
 const ACTIVATE = "activate";
 const DEACTIVATE = "deactivate";
