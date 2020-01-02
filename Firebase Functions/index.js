@@ -119,7 +119,7 @@ exports.relay = functions.https.onRequest((request, response) => {
     else if(speedchange > 0){
         if(speedchange == 1){
             // outstr = "風速往上";
-            if(deactivate_db == 0){
+            if((deactivate_db == 0) || (activate_db != 1)) {
                 outstr = "電扇已經停止運轉,開啟電扇並設定為風速1";
                 database.ref('/activate').set('1');
                 database.ref('/deactivate').set('');
@@ -160,6 +160,7 @@ exports.relay = functions.https.onRequest((request, response) => {
     else{
         outstr = "電扇已經可以控制了"
         // database.ref().set(params);
+        database.ref('/number').set(1);
     }
     // Fan Control Logic END ------
 
