@@ -26,7 +26,7 @@ def on_message(client, userdata, msg):
         print("Received message #2, do something else")
         # Do something else
 
-    if (msg.payload.find("User1") != -1 ):
+    if (msg.payload.find("xx") != -1 ):
         print(msg.payload)
 
 # Create an MQTT client and attach our routines to it.
@@ -38,3 +38,5 @@ client.connect("test.mosquitto.org", 1883, 60)
 
 # Process network traffic and dispatch callbacks. This will also handle
 # reconnecting. Check the documentation at
+
+client.loop_forever()
