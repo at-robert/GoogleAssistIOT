@@ -3,6 +3,7 @@
 # check if the received data matches two predefined 'commands'
 
 import paho.mqtt.client as mqtt
+import os
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -25,6 +26,9 @@ def on_message(client, userdata, msg):
     if msg.payload == "World!":
         print("Received message #2, do something else")
         # Do something else
+
+    if msg.payload == "PowerOff":
+        print("Power Off the System")
 
     if (msg.payload.find("xx") != -1 ):
         print(msg.payload)
