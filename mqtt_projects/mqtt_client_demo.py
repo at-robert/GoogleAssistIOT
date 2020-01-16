@@ -29,6 +29,7 @@ def on_message(client, userdata, msg):
 
     if msg.payload == "PowerOff":
         print("Power Off the System")
+        os.system("shutdown -h now")
 
     if (msg.payload.find("xx") != -1 ):
         print(msg.payload)
