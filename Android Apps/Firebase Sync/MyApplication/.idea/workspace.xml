@@ -14,11 +14,13 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/MainActivity.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -43,13 +45,73 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myapplication/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="211" column="33" selection-start-line="211" selection-start-column="33" selection-end-line="211" selection-end-column="33" />
+            <state relative-caret-position="268">
+              <caret line="386" column="37" selection-start-line="386" selection-start-column="37" selection-end-line="386" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5237#6700#0" expanded="true" />
-                <element signature="e#6699#6700#0" expanded="true" />
-                <element signature="e#22269#22270#0" expanded="true" />
+                <element signature="e#20240#20241#0" expanded="true" />
+                <element signature="e#20290#20291#0" expanded="true" />
+                <element signature="e#20333#20334#0" expanded="true" />
+                <element signature="e#20371#20372#0" expanded="true" />
+                <element signature="e#26316#26975#0" expanded="true" />
+                <element signature="e#26974#26975#0" expanded="true" />
+                <element signature="e#29179#29180#0" expanded="true" />
+                <element signature="e#29234#29235#0" expanded="true" />
+                <element signature="e#29290#29291#0" expanded="true" />
+                <element signature="e#29329#29330#0" expanded="true" />
+                <element signature="e#29606#29607#0" expanded="true" />
+                <element signature="e#29658#29659#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/no/nordicsemi/android/support/v18/scanner/BluetoothLeScannerCompat.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="130">
+              <caret line="269" column="30" lean-forward="true" selection-start-line="269" selection-start-column="30" selection-end-line="269" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/no/nordicsemi/android/support/v18/scanner/ScanCallback.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="19">
+              <caret line="38" column="47" selection-start-line="38" selection-start-column="47" selection-end-line="38" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="4" column="40" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
+            </state>
+          </provider>
+          <provider editor-type-id="android-manifest" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/no/nordicsemi/android/support/v18/scanner/ScanSettings.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="98">
+              <caret line="415" selection-start-line="415" selection-end-line="415" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myapplication/ScanResultAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="893">
+              <caret line="58" column="86" selection-start-line="58" selection-start-column="47" selection-end-line="58" selection-end-column="86" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1276#1277#0" expanded="true" />
+                <element signature="e#1363#1364#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -57,61 +119,36 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml">
-          <provider editor-type-id="text-editor" />
-          <provider selected="true" editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1235">
+              <caret line="65" column="28" selection-start-line="65" selection-start-column="28" selection-end-line="65" selection-end-column="28" />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/no/nordicsemi/android/ble/BleManager.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/recycler_items.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9139">
-              <caret line="557" column="45" selection-start-line="557" selection-start-column="35" selection-end-line="557" selection-end-column="45" />
+            <state relative-caret-position="247">
+              <caret line="13" column="37" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="37" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/no/nordicsemi/android/ble/BleManagerHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="32965">
-              <caret line="1802" column="61" selection-start-line="1802" selection-start-column="38" selection-end-line="1802" selection-end-column="61" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-29/android/bluetooth/BluetoothGattCallback.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1349">
-              <caret line="85" column="28" selection-start-line="85" selection-start-column="28" selection-end-line="85" selection-end-column="28" />
-            </state>
-          </provider>
+          <provider editor-type-id="android-designer2" />
         </entry>
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="layoutResourceFile_vertical" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>registerApp</find>
-      <find>Request</find>
-      <find>requestHandler</find>
-      <find>BluetoothGattCallback</find>
-      <find>isRequiredServiceSupported</find>
-      <find>MyManagerGattCallback</find>
-      <find>BleManagerGattCallback</find>
-      <find>Read Response received from</find>
-      <find>getGattCallback</find>
-      <find>implement</find>
-      <find>onCharacteristicRead</find>
-      <find>final static String</find>
-      <find>private static final String</find>
-      <find>onFluxCapacitorEngaged</find>
-      <find>TAG</find>
-      <find>waitForNotification</find>
-      <find>MyBleManager</find>
-      <find>pattern</find>
-      <find>init_fire_store_snapshot_listener</find>
-      <find>write_fire_store_value</find>
       <find>create_fire_store_document</find>
       <find>bluetoothAdapter</find>
       <find>fluxHandler</find>
@@ -122,12 +159,33 @@
       <find>firstCharacteristic</find>
       <find>secondCharacteristic</find>
       <find>SECOND_CHAR</find>
+      <find>UUID</find>
+      <find>UUID.fromString</find>
+      <find>&quot;5f6d4f53-5f52-5043-5f53-56435f49445f&quot;</find>
+      <find>adapterDevices</find>
+      <find>bleDeviceName</find>
+      <find>scanResultArrayList</find>
+      <find>txtDeviceName</find>
+      <find>ble_device_connect</find>
+      <find>scanResultAdapter</find>
+      <find>bleScanner</find>
+      <find>ACCESS_FINE_LOCATION</find>
+      <find>localtion_setting_check</find>
+      <find>context</find>
+      <find>DialogFragment</find>
+      <find>toast</find>
+      <find>bCloseDialog</find>
+      <find>Handler</find>
+      <find>show_alert_dialog_confirm</find>
+      <find>dialogResultValue</find>
+      <find>fan_state_update</find>
     </findStrings>
     <replaceStrings>
       <replace>mos_rpc_tx_ctl_char</replace>
       <replace>mos_rpc_data_char</replace>
       <replace>MOS_RPC_TX_CTL_CHAR</replace>
       <replace>MOS_RPC_DATA_CHAR</replace>
+      <replace>dialogResultValue</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -137,17 +195,21 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/no/nordicsemi/android/ble/BleManager.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/MyAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/recycler_items.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/ScanResultAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/MainActivity.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-2135" />
-    <option name="y" value="-14" />
+    <option name="x" value="-1301" />
+    <option name="y" value="-4" />
     <option name="width" value="1943" />
     <option name="height" value="1043" />
   </component>
@@ -156,8 +218,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -169,31 +229,14 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="My Application" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="My Application" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="My Application" type="1abcf292:AndroidViewProjectNode" />
-              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="03157df3ec347738" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-02-13T02:01:36.655Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-02-17T05:47:26.603Z" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_opened_file_path" value="$USER_HOME$/Downloads/RxAndroidBle-master" />
@@ -306,32 +349,101 @@
     <frame x="-1927" y="0" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Captures" order="0" sideWeight="0.2997199" side_tool="true" visible="true" weight="0.20048505" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.70028013" visible="true" weight="0.20048505" />
-      <window_info id="Structure" order="2" side_tool="true" />
-      <window_info id="Favorites" order="3" side_tool="true" />
-      <window_info id="Build Variants" order="4" side_tool="true" />
-      <window_info id="Image Layers" order="5" />
-      <window_info id="Designer" order="6" />
-      <window_info id="Resources Explorer" order="7" sideWeight="0.49874055" weight="0.32983023" />
-      <window_info id="Capture Tool" order="8" />
+      <window_info id="Captures" order="0" show_stripe_button="false" sideWeight="0.5102564" side_tool="true" weight="0.32983023" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.6820513" weight="0.20048505" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info id="Build Variants" order="3" sideWeight="0.12051282" side_tool="true" weight="0.20048505" />
+      <window_info id="Image Layers" order="4" />
+      <window_info id="Designer" order="5" />
+      <window_info id="Resources Explorer" order="6" show_stripe_button="false" sideWeight="0.4871795" weight="0.32983023" />
+      <window_info id="Capture Tool" order="7" />
+      <window_info id="Structure" order="8" sideWeight="0.87948716" visible="true" weight="0.27728376" />
       <window_info anchor="bottom" id="Run" order="0" sideWeight="0.49717057" weight="0.3285968" />
-      <window_info active="true" anchor="bottom" id="Logcat" order="1" sideWeight="0.5877122" visible="true" weight="0.36589697" />
-      <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.49717057" weight="0.3285968" />
+      <window_info active="true" anchor="bottom" id="Logcat" order="1" sideWeight="0.5658852" visible="true" weight="0.23445825" />
+      <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.49393696" weight="0.3285968" />
       <window_info anchor="bottom" id="Debug" order="3" />
-      <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.49636218" weight="0.3285968" />
-      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.4122878" side_tool="true" visible="true" weight="0.36589697" />
-      <window_info anchor="bottom" id="Version Control" order="6" sideWeight="0.4987874" weight="0.3285968" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.4769604" weight="0.18294849" />
-      <window_info anchor="bottom" id="Android Profiler" order="8" />
-      <window_info anchor="bottom" id="Find" order="9" sideWeight="0.4898949" weight="0.3285968" />
+      <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.49474534" weight="0.3285968" />
+      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.43411478" side_tool="true" weight="0.30550623" />
+      <window_info anchor="bottom" id="Version Control" order="6" sideWeight="0.497979" weight="0.3285968" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.47049314" weight="0.18294849" />
+      <window_info anchor="bottom" id="Android Profiler" order="8" weight="0.3285968" />
+      <window_info anchor="bottom" id="Find" order="9" sideWeight="0.48423606" weight="0.22024867" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info active="true" anchor="right" id="Assistant" order="5" visible="true" weight="0.32012933" />
+      <window_info anchor="right" id="Preview" order="6" weight="0.32983023" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Captures" order="0" show_stripe_button="false" sideWeight="0.5102564" side_tool="true" weight="0.32983023" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.6820513" visible="true" weight="0.20048505" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info id="Build Variants" order="3" sideWeight="0.12051282" side_tool="true" weight="0.20048505" />
+      <window_info id="Image Layers" order="4" />
+      <window_info id="Designer" order="5" />
+      <window_info id="Resources Explorer" order="6" show_stripe_button="false" sideWeight="0.4871795" weight="0.32983023" />
+      <window_info id="Capture Tool" order="7" />
+      <window_info id="Structure" order="8" sideWeight="0.87948716" weight="0.27809215" />
+      <window_info anchor="bottom" id="Run" order="0" sideWeight="0.49717057" weight="0.3285968" />
+      <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.5658852" visible="true" weight="0.30550623" />
+      <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.49393696" weight="0.3285968" />
+      <window_info anchor="bottom" id="Debug" order="3" />
+      <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.49474534" weight="0.3285968" />
+      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.43411478" side_tool="true" visible="true" weight="0.30550623" />
+      <window_info anchor="bottom" id="Version Control" order="6" sideWeight="0.497979" weight="0.3285968" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.47049314" weight="0.18294849" />
+      <window_info anchor="bottom" id="Android Profiler" order="8" />
+      <window_info anchor="bottom" id="Find" order="9" sideWeight="0.48423606" weight="0.3285968" />
+      <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" order="1" />
+      <window_info anchor="right" id="Gradle" order="2" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info active="true" anchor="right" id="Assistant" order="5" visible="true" weight="0.32012933" />
+      <window_info active="true" anchor="right" id="Preview" order="6" visible="true" weight="0.32983023" />
+    </layout-to-restore>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/src/main/java/no/nordicsemi/android/ble/AwaitingRequest.java">
@@ -369,18 +481,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="39" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider editor-type-id="text-editor" />
-      <provider selected="true" editor-type-id="android-designer2" />
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-29/java/util/StringTokenizer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
@@ -399,30 +499,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myapplication/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="211" column="33" selection-start-line="211" selection-start-column="33" selection-end-line="211" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5237#6700#0" expanded="true" />
-            <element signature="e#6699#6700#0" expanded="true" />
-            <element signature="e#22269#22270#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml">
-      <provider editor-type-id="text-editor" />
-      <provider selected="true" editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/no/nordicsemi/android/ble/BleManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9139">
-          <caret line="557" column="45" selection-start-line="557" selection-start-column="35" selection-end-line="557" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/no/nordicsemi/android/ble/BleManagerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="32965">
@@ -434,6 +510,121 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1349">
           <caret line="85" column="28" selection-start-line="85" selection-start-column="28" selection-end-line="85" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/no/nordicsemi/android/ble/BleManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="557" column="45" selection-start-line="557" selection-start-column="35" selection-end-line="557" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-29/android/os/ParcelUuid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-472">
+          <caret line="29" column="22" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/no/nordicsemi/android/support/v18/scanner/ScanResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="211" column="18" selection-start-line="211" selection-start-column="18" selection-end-line="211" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="9" column="43" selection-start-line="9" selection-start-column="43" selection-end-line="9" selection-end-column="43" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/no/nordicsemi/android/support/v18/scanner/ScanFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="493" column="64" selection-start-line="493" selection-start-column="54" selection-end-line="493" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myapplication/ScanResultAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="893">
+          <caret line="58" column="86" selection-start-line="58" selection-start-column="47" selection-end-line="58" selection-end-column="86" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1276#1277#0" expanded="true" />
+            <element signature="e#1363#1364#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1235">
+          <caret line="65" column="28" selection-start-line="65" selection-start-column="28" selection-end-line="65" selection-end-column="28" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/recycler_items.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="37" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="37" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/no/nordicsemi/android/support/v18/scanner/ScanSettings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="415" selection-start-line="415" selection-end-line="415" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="40" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/no/nordicsemi/android/support/v18/scanner/ScanCallback.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="38" column="47" selection-start-line="38" selection-start-column="47" selection-end-line="38" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/no/nordicsemi/android/support/v18/scanner/BluetoothLeScannerCompat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="269" column="30" lean-forward="true" selection-start-line="269" selection-start-column="30" selection-end-line="269" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myapplication/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="386" column="37" selection-start-line="386" selection-start-column="37" selection-end-line="386" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#20240#20241#0" expanded="true" />
+            <element signature="e#20290#20291#0" expanded="true" />
+            <element signature="e#20333#20334#0" expanded="true" />
+            <element signature="e#20371#20372#0" expanded="true" />
+            <element signature="e#26316#26975#0" expanded="true" />
+            <element signature="e#26974#26975#0" expanded="true" />
+            <element signature="e#29179#29180#0" expanded="true" />
+            <element signature="e#29234#29235#0" expanded="true" />
+            <element signature="e#29290#29291#0" expanded="true" />
+            <element signature="e#29329#29330#0" expanded="true" />
+            <element signature="e#29606#29607#0" expanded="true" />
+            <element signature="e#29658#29659#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -1,5 +1,9 @@
 package com.example.myapplication;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -7,6 +11,11 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -22,18 +31,30 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -44,8 +65,15 @@ import no.nordicsemi.android.ble.BleManagerCallbacks;
 import no.nordicsemi.android.ble.PhyRequest;
 import no.nordicsemi.android.ble.callback.DataReceivedCallback;
 import no.nordicsemi.android.ble.data.Data;
+import no.nordicsemi.android.support.v18.scanner.BluetoothLeScannerCompat;
+import no.nordicsemi.android.support.v18.scanner.ScanCallback;
+import no.nordicsemi.android.support.v18.scanner.ScanFilter;
+import no.nordicsemi.android.support.v18.scanner.ScanResult;
+import no.nordicsemi.android.support.v18.scanner.ScanSettings;
 
 class MyBleManager extends BleManager<BleManagerCallbacks> {
+
+    final static UUID DEVICE_UUID = UUID.fromString("7d80948d-bfc4-ca07-424a-ec961a3a016d");
 
     final static UUID SERVICE_UUID = UUID.fromString("5f6d4f53-5f52-5043-5f53-56435f49445f");
     final static UUID MOS_RPC_TX_CTL_CHAR   = UUID.fromString("5f6d4f53-5f52-5043-5f74-785f63746c5f");
@@ -296,7 +324,7 @@ interface FluxCallbacks extends BleManagerCallbacks {
     void onFluxCapacitorEngaged();
 }
 
-public class MainActivity extends AppCompatActivity implements FluxCallbacks{
+public class MainActivity extends AppCompatActivity implements FluxCallbacks, ScanResultAdapter.OnItemClickHandler{
 
     private static final String TAG = "MainActivity";
 
@@ -305,6 +333,9 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks{
 
     private Button btnConnectBLE;
     private Button btnDisconnectBLE;
+    private Button btnScanBLE;
+
+    private RecyclerView recyclerDevices;
 
     // Access a Cloud Firestore instance from your Activity
     private FirebaseFirestore db;
@@ -321,6 +352,20 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks{
     private BluetoothAdapter bluetoothAdapter = null;
     private BluetoothDevice bleDevice = null;
     private MyBleManager bleManager = null;
+    private BluetoothLeScannerCompat bleScanner = null;
+
+    private Boolean isBleDeviceScanning = false;
+
+    // BLE scanning
+    private static final int REQUEST_CODE_ACCESS_COARSE_LOCATION = 1;
+    private static final int REQUEST_CODE_LOCATION_SETTINGS = 2;
+
+    // BLE devices list structure
+    ArrayList<ScanResult> scanResultArrayList = new ArrayList<>();
+    ScanResultAdapter scanResultAdapter;
+
+    // Dialog
+    private boolean dialogResultValue = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -340,10 +385,10 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks{
 
         // Init UI
         btnWriteDB = (Button) findViewById(R.id.button_write);
-        btnWriteDB.setText("Push");
+        btnWriteDB.setText("FanSpeed");
 
         textState = (TextView) findViewById(R.id.text_state);
-        textState.setText("Connecting...");
+        textState.setText("Please scan devices");
 
         btnConnectBLE = (Button) findViewById(R.id.button_connect);
         btnConnectBLE.setText("Connect");
@@ -354,11 +399,19 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks{
         btnConnectBLE.setEnabled(true);
         btnDisconnectBLE.setEnabled(false);
 
+
+        btnScanBLE = (Button) findViewById(R.id.button_scan);
+        btnScanBLE.setText("Start Scan");
+
+        recyclerDevices = (RecyclerView) findViewById(R.id.recycler_devices);
+        recyclerDevices.setLayoutManager(new LinearLayoutManager(this));
+        recyclerDevices.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
         // Init Variable
         fan_button_count = 0;
         table.put("FanSpeed", "Low");
         table.put("OnOff", false);
-        fan_state_update(table);
+        //fan_state_update(table);
 
         // Init Firestore
         db = FirebaseFirestore.getInstance();
@@ -372,6 +425,13 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks{
 
         // Init Nordic BLE manager
         bleManager = new MyBleManager(this);
+
+        // Init Nordic BLE scanner
+        bleScanner = BluetoothLeScannerCompat.getScanner();
+
+        // Init BLE devices list
+        scanResultAdapter = new ScanResultAdapter(scanResultArrayList, this);
+        recyclerDevices.setAdapter(scanResultAdapter);
     }
 
     @Override
@@ -530,6 +590,207 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks{
                 });
     }
 
+    private static class OuterHandler extends Handler {
+        private final WeakReference<MainActivity> mActivity;
+
+        public OuterHandler(MainActivity activity) {
+            mActivity = new WeakReference<MainActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            MainActivity activity = mActivity.get();
+            if (activity != null) {
+                throw new RuntimeException();
+            }
+        }
+    }
+
+    public boolean show_alert_dialog_confirm(Context context, String message)
+    {
+        final Handler handler = new OuterHandler(this);
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setTitle("Alert");
+        alert.setMessage(message);
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id)
+            {
+                dialogResultValue = true;
+                handler.sendMessage(handler.obtainMessage());
+            }
+        });
+
+        /*
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id)
+            {
+                dialogResultValue = false;
+                handler.sendMessage(handler.obtainMessage());
+            }
+        });
+
+         */
+
+        alert.show();
+
+        try{ Looper.loop(); }
+        catch(RuntimeException e){}
+
+        return dialogResultValue;
+    }
+
+    public void ble_device_connect(String mac_address)
+    {
+        if(bluetoothAdapter == null)
+        {
+            Log.w(TAG, "BT adapter is null");
+            return;
+        }
+
+        if(bleManager == null)
+        {
+            Log.w(TAG, "BLE manager is null");
+            return;
+        }
+
+        bleDevice = bluetoothAdapter.getRemoteDevice(mac_address);
+
+        if(bleDevice == null)
+        {
+            Log.w(TAG, "BLE device is null");
+            return;
+        }
+
+        textState.setText("Connecting...");
+
+        bleManager.setManagerCallbacks(this);
+
+        bleManager.connect(bleDevice)
+                .timeout(100000)
+                .retry(3, 100)
+                .done(device -> {
+                    Log.i(TAG, "Device connected");
+                    btnConnectBLE.setEnabled(false);
+                    btnDisconnectBLE.setEnabled(true);
+                })
+                .enqueue();
+    }
+
+    public void ble_device_disconnect() {
+        if(bleManager == null)
+        {
+            Log.w(TAG, "BLE manager is null");
+            return;
+        }
+
+        bleManager.disconnect()
+                .done(device -> {
+                    Log.i(TAG, "Device disconnected");
+                    btnConnectBLE.setEnabled(true);
+                    btnDisconnectBLE.setEnabled(false);
+                    textState.setText("Disconnected");
+                })
+                .enqueue();
+    }
+
+    public boolean location_permission_check() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                    show_alert_dialog_confirm(this, "Please enable location permission for BLE scanning after Anroid 6.0");
+                }
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                        REQUEST_CODE_ACCESS_COARSE_LOCATION);
+
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean location_setting_check() {
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        boolean networkProvider = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        boolean gpsProvider = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if (networkProvider || gpsProvider) return true;
+        return false;
+    }
+
+    private void location_setting_request() {
+        show_alert_dialog_confirm(this, "Please enable location setting to support BLE scanning.");
+
+        Intent locationIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        this.startActivityForResult(locationIntent, REQUEST_CODE_LOCATION_SETTINGS);
+    }
+
+    private ScanCallback scanCallback = new ScanCallback() {
+        @Override
+        public void onBatchScanResults(@NonNull final List<ScanResult> results) {
+
+            scanResultArrayList.clear();
+            for(ScanResult r:results)
+            {
+                String bleDeviceName = r.getDevice().getName();
+                String bleDeviceMAC = r.getDevice().getAddress();
+
+                if(bleDeviceName != null) {
+                    Log.i(TAG, "============== Name: " + bleDeviceName + ", MAC: " + bleDeviceMAC + " ==============");
+                    scanResultArrayList.add(r);
+                }
+            }
+            scanResultAdapter.notifyDataSetChanged();
+        }
+    };
+
+    public void ble_device_start_scan() {
+
+        if(!location_setting_check())
+        {
+            location_setting_request();
+            return;
+        }
+
+        if(!location_permission_check())
+        {
+            return;
+        }
+
+        ScanSettings settings = new ScanSettings.Builder()
+                .setLegacy(false)
+                .setScanMode(ScanSettings.SCAN_MODE_LOW_POWER)
+                .setReportDelay(3000)
+                .setUseHardwareBatchingIfSupported(true)
+                .build();
+        List<ScanFilter> filters = new ArrayList<>();
+        //ParcelUuid deviceUUID = new ParcelUuid(bleManager.SERVICE_UUID);
+        //filters.add(new ScanFilter.Builder().setServiceUuid(deviceUUID).build());
+        //filters.add(new ScanFilter.Builder().setDeviceName("MyDeviceName_Miles").build());
+
+        bleScanner.startScan(filters, settings, scanCallback);
+
+        isBleDeviceScanning = true;
+        btnScanBLE.setText("Stop Scan");
+        textState.setText("Scanning...");
+    }
+
+    public void ble_device_stop_scan() {
+
+        Log.i(TAG, "ble_device_stop_scan");
+
+        bleScanner.stopScan(scanCallback);
+
+        isBleDeviceScanning = false;
+        btnScanBLE.setText("Start Scan");
+        textState.setText("Please scan devices");
+    }
+
     public void write_button_on_click(View view) {
 
         switch(fan_button_count)
@@ -564,55 +825,23 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks{
 
 
     public void connect_button_on_click(View view) {
-
-        if(bluetoothAdapter == null)
-        {
-            Log.w(TAG, "BT adapter is null");
-            return;
-        }
-
-        if(bleManager == null)
-        {
-            Log.w(TAG, "BLE manager is null");
-            return;
-        }
-
-        bleDevice = bluetoothAdapter.getRemoteDevice("A4:CF:12:81:4F:DE");
-
-        if(bleDevice == null)
-        {
-            Log.w(TAG, "BLE device is null");
-            return;
-        }
-
-        bleManager.setManagerCallbacks(this);
-
-        bleManager.connect(bleDevice)
-                .timeout(100000)
-                .retry(3, 100)
-                .done(device -> {
-                    Log.i(TAG, "Device connected");
-                    btnConnectBLE.setEnabled(false);
-                    btnDisconnectBLE.setEnabled(true);
-                })
-                .enqueue();
-
+        ble_device_connect("A4:CF:12:81:4F:DE");
     }
 
     public void disconnect_button_on_click(View view){
-        if(bleManager == null)
-        {
-            Log.w(TAG, "BLE manager is null");
-            return;
-        }
+        ble_device_disconnect();
+    }
 
-        bleManager.disconnect()
-                .done(device -> {
-                    Log.i(TAG, "Device disconnected");
-                    btnConnectBLE.setEnabled(true);
-                    btnDisconnectBLE.setEnabled(false);
-                })
-                .enqueue();
+    public void scan_button_on_click(View view)
+    {
+        if(isBleDeviceScanning)
+        {
+            ble_device_stop_scan();
+        }
+        else
+        {
+            ble_device_start_scan();
+        }
     }
 
     @Override
@@ -677,5 +906,38 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks{
     @Override
     public void onDeviceNotSupported(@NonNull BluetoothDevice device) {
 
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        if(isBleDeviceScanning)
+        {
+            ble_device_stop_scan();
+        }
+        ble_device_connect(scanResultArrayList.get(position).getDevice().getAddress());
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CODE_ACCESS_COARSE_LOCATION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // User choose permission allowed
+            } else {
+                // User choose permission denied
+                show_alert_dialog_confirm(this, "Location permission is denied, the ble scanning is not supported.");
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_LOCATION_SETTINGS) {
+            if (location_setting_check()) {
+            } else {
+                show_alert_dialog_confirm(this, "Location setting is disable, the ble scanning is not supported.");
+            }
+        } else super.onActivityResult(requestCode, resultCode, data);
     }
 }
