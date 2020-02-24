@@ -8,16 +8,25 @@ modules_version: ${mos.version}
 mongoose_os_version: ${mos.version}
 
 config_schema:
-  - ["mqtt.server", "iot.eclipse.org:1883"]
+  - ["debug.level", 2]
+  - ["wifi.ap.enable", false]
+  - ["mqtt.server", "mqtt.googleapis.com:8883"]
+  - ["mqtt.ssl_ca_cert", "ca.pem"]
+  - ["sntp.enable", true]
   - ["i2c.enable", true]
   - ["bt.enable", "b", true, {title: "Enable the BT service"}]
   - ["bt.keep_enabled", "b", true, {title: "Keep the BT service enabled despite WIFI being up"}]
   - ["bt.random_address", "b", false, {title: "Use a consistent BT MAC address"}]
   - ["bt.dev_name", "MyDeviceName_Miles"]  
 
+
 tags:
   - js
-
+  - c
+  
+sources:
+  - src
+  
 filesystem:
   - fs
 
@@ -26,3 +35,5 @@ libs:
   - origin: https://github.com/mongoose-os-libs/js-demo-bundle
   - origin: https://github.com/mongoose-os-libs/rpc-gatts
   - origin: https://github.com/mongoose-os-libs/rpc-service-wifi
+  - origin: https://github.com/mongoose-os-libs/rpc-common  
+  - origin: https://github.com/mongoose-os-libs/mjs

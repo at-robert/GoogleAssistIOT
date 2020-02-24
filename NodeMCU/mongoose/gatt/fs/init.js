@@ -5,6 +5,7 @@ load('api_gpio.js');
 load('api_mqtt.js');
 load('api_timer.js');
 load('api_sys.js');
+load('api_rpc.js');
 
 /*
     LED function
@@ -130,6 +131,14 @@ function button_handler()
     let pub_topic = '/devices/' + Cfg.get('device.id') + '/state';
     print('== Publishing to ' + pub_topic + ':', message);
     MQTT.pub(pub_topic, message, 1 /* QoS */);    
+    
+	/*    
+	let f = ffi('int my_func(int, int)');
+	print('Calling C my_func:', f(1,2));
+		
+	let f2 = ffi('void amtran_wifi_test(void)');
+	f2();
+	*/ 
 }
 
 /* 
