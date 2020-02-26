@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.google.apis:google-api-services-cloudiot:v1-rev94-1.25.0@jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.apis/google-api-services-cloudiot/v1-rev94-1.25.0/baac41090e8c79f7e83503b88457ad544aab369/google-api-services-cloudiot-v1-rev94-1.25.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.apis/google-api-services-cloudiot/v1-rev94-1.25.0/77f7613a5d4253ed2597767490483ff70c6e9bce/google-api-services-cloudiot-v1-rev94-1.25.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.apis/google-api-services-cloudiot/v1-rev94-1.25.0/fd3d92001d4397ec28799d7bf661e61aa5fa6a92/google-api-services-cloudiot-v1-rev94-1.25.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

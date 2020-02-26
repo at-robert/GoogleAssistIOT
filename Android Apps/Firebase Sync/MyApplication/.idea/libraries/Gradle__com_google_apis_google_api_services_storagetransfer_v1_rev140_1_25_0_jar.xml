@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.google.apis:google-api-services-storagetransfer:v1-rev140-1.25.0@jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.apis/google-api-services-storagetransfer/v1-rev140-1.25.0/d5310b742b59a6397ee2d8774acb9a8114f6a6d0/google-api-services-storagetransfer-v1-rev140-1.25.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.apis/google-api-services-storagetransfer/v1-rev140-1.25.0/af774c51f9f779edeb71cd74cefef6cb4cde82f4/google-api-services-storagetransfer-v1-rev140-1.25.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.apis/google-api-services-storagetransfer/v1-rev140-1.25.0/9718a7b3883d7d1574cb7d968449988567091a59/google-api-services-storagetransfer-v1-rev140-1.25.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

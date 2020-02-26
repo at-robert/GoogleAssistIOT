@@ -22,6 +22,19 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.HttpRequestInitializer;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.Charsets;
+import com.google.api.services.cloudiot.v1.CloudIot;
+import com.google.api.services.cloudiot.v1.CloudIotScopes;
+import com.google.api.services.cloudiot.v1.model.Device;
+import com.google.api.services.cloudiot.v1.model.DeviceCredential;
+import com.google.api.services.cloudiot.v1.model.PublicKeyCredential;
+import com.google.common.io.Files;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -49,10 +62,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +99,7 @@ class MyBleManager extends BleManager<BleManagerCallbacks> {
     final static UUID MOS_RPC_DATA_CHAR  = UUID.fromString("5f6d4f53-5f52-5043-5f64-6174615f5f5f");
 
     final static String MOS_RPC_CMD_GET_SYS_INFO = "{\"id\":1999,\"method\":\"Sys.GetInfo\"}";
+    final static String MOS_RPC_CMD_SET_WIFI_CONNECTION = "{\"id\": 1998, \"method\": \"AMT.ConnectToAP\", \"params\": {\"ssid\": \"VXA\", \"pass\": \"12345678\"}}";
 
     // Client characteristics
     private BluetoothGattCharacteristic mos_rpc_tx_ctl_char, mos_rpc_data_char;
@@ -253,6 +273,14 @@ class MyBleManager extends BleManager<BleManagerCallbacks> {
                     .with(fluxHandler)
                     .enqueue();
 
+            writeCharacteristic(mos_rpc_tx_ctl_char, int_to_four_bytes(MOS_RPC_CMD_SET_WIFI_CONNECTION.length()))
+                    .done(device -> log(Log.INFO, "Greetings sent"))
+                    .enqueue();
+
+            writeCharacteristic(mos_rpc_data_char, MOS_RPC_CMD_SET_WIFI_CONNECTION.getBytes())
+                    .done(device -> log(Log.INFO, "Greetings sent"))
+                    .enqueue();
+
             // Set a callback for your notifications. You may also use waitForNotification(...).
             // Both callbacks will be called when notification is received.
             //setNotificationCallback(firstCharacteristic, callback);
@@ -324,7 +352,7 @@ interface FluxCallbacks extends BleManagerCallbacks {
     void onFluxCapacitorEngaged();
 }
 
-public class MainActivity extends AppCompatActivity implements FluxCallbacks, ScanResultAdapter.OnItemClickHandler{
+public class MainActivity extends AppCompatActivity implements FluxCallbacks, ScanResultAdapter.OnItemClickHandler {
 
     private static final String TAG = "MainActivity";
 
@@ -456,8 +484,7 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks, Sc
         return super.onOptionsItemSelected(item);
     }
 
-    public void fan_state_update(Map curTable)
-    {
+    public void fan_state_update(Map curTable) {
         table.put("FanSpeed", curTable.get("FanSpeed"));
         table.put("OnOff", curTable.get("OnOff"));
 
@@ -466,33 +493,22 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks, Sc
 
         Log.d(TAG, "FanSpeed: " + fan_speed + ", OnOff: " + on_off);
 
-        if(on_off)
-        {
-            if(fan_speed.equals("Low"))
-            {
+        if (on_off) {
+            if (fan_speed.equals("Low")) {
                 textState.setText("Speed: Low");
-            }
-            else if(fan_speed.equals("Medium"))
-            {
+            } else if (fan_speed.equals("Medium")) {
                 textState.setText("Speed: Medium");
-            }
-            else if(fan_speed.equals("High"))
-            {
+            } else if (fan_speed.equals("High")) {
                 textState.setText("Speed: High");
-            }
-            else
-            {
+            } else {
                 Log.d(TAG, "Error occurs, FanSpeed: " + fan_speed);
             }
-        }
-        else
-        {
+        } else {
             textState.setText("Power OFF");
         }
     }
 
-    public void set_iot_device_name(String _str_device_name)
-    {
+    public void set_iot_device_name(String _str_device_name) {
         str_device_name = _str_device_name;
     }
 
@@ -507,8 +523,7 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks, Sc
     public void init_fire_store_snapshot_listener() {
         String _str_device_name = get_iot_device_name();
 
-        if(_str_device_name.equals(""))
-        {
+        if (_str_device_name.equals("")) {
             Log.w(TAG, "Init firestore snapshot listener fail because device name is null");
             b_is_db_snapshot_listener_enable = false;
             return;
@@ -537,11 +552,9 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks, Sc
         b_is_db_snapshot_listener_enable = true;
     }
 
-    public void create_fire_store_document()
-    {
+    public void create_fire_store_document() {
         String _str_device_name = get_iot_device_name();
-        if(_str_device_name.equals(""))
-        {
+        if (_str_device_name.equals("")) {
             Log.w(TAG, "Create firestore document fail because device name is null");
             return;
         }
@@ -565,11 +578,9 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks, Sc
                 });
     }
 
-    public void update_fire_store_document()
-    {
+    public void update_fire_store_document() {
         String _str_device_name = get_iot_device_name();
-        if(_str_device_name.equals(""))
-        {
+        if (_str_device_name.equals("")) {
             Log.w(TAG, "Update firestore document fail because device name is null");
             return;
         }
@@ -606,16 +617,14 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks, Sc
         }
     }
 
-    public boolean show_alert_dialog_confirm(Context context, String message)
-    {
+    public boolean show_alert_dialog_confirm(Context context, String message) {
         final Handler handler = new OuterHandler(this);
 
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle("Alert");
         alert.setMessage(message);
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id)
-            {
+            public void onClick(DialogInterface dialog, int id) {
                 dialogResultValue = true;
                 handler.sendMessage(handler.obtainMessage());
             }
@@ -634,30 +643,28 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks, Sc
 
         alert.show();
 
-        try{ Looper.loop(); }
-        catch(RuntimeException e){}
+        try {
+            Looper.loop();
+        } catch (RuntimeException e) {
+        }
 
         return dialogResultValue;
     }
 
-    public void ble_device_connect(String mac_address)
-    {
-        if(bluetoothAdapter == null)
-        {
+    public void ble_device_connect(String mac_address) {
+        if (bluetoothAdapter == null) {
             Log.w(TAG, "BT adapter is null");
             return;
         }
 
-        if(bleManager == null)
-        {
+        if (bleManager == null) {
             Log.w(TAG, "BLE manager is null");
             return;
         }
 
         bleDevice = bluetoothAdapter.getRemoteDevice(mac_address);
 
-        if(bleDevice == null)
-        {
+        if (bleDevice == null) {
             Log.w(TAG, "BLE device is null");
             return;
         }
@@ -678,8 +685,7 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks, Sc
     }
 
     public void ble_device_disconnect() {
-        if(bleManager == null)
-        {
+        if (bleManager == null) {
             Log.w(TAG, "BLE manager is null");
             return;
         }
@@ -735,12 +741,11 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks, Sc
         public void onBatchScanResults(@NonNull final List<ScanResult> results) {
 
             scanResultArrayList.clear();
-            for(ScanResult r:results)
-            {
+            for (ScanResult r : results) {
                 String bleDeviceName = r.getDevice().getName();
                 String bleDeviceMAC = r.getDevice().getAddress();
 
-                if(bleDeviceName != null) {
+                if (bleDeviceName != null) {
                     Log.i(TAG, "============== Name: " + bleDeviceName + ", MAC: " + bleDeviceMAC + " ==============");
                     scanResultArrayList.add(r);
                 }
@@ -751,14 +756,12 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks, Sc
 
     public void ble_device_start_scan() {
 
-        if(!location_setting_check())
-        {
+        if (!location_setting_check()) {
             location_setting_request();
             return;
         }
 
-        if(!location_permission_check())
-        {
+        if (!location_permission_check()) {
             return;
         }
 
@@ -793,8 +796,7 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks, Sc
 
     public void write_button_on_click(View view) {
 
-        switch(fan_button_count)
-        {
+        switch (fan_button_count) {
             case 0: // Power on, LOW
                 fan_button_count++;
                 table.put("FanSpeed", "Low");
@@ -823,23 +825,18 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks, Sc
         update_fire_store_document();
     }
 
-
     public void connect_button_on_click(View view) {
         ble_device_connect("A4:CF:12:81:4F:DE");
     }
 
-    public void disconnect_button_on_click(View view){
+    public void disconnect_button_on_click(View view) {
         ble_device_disconnect();
     }
 
-    public void scan_button_on_click(View view)
-    {
-        if(isBleDeviceScanning)
-        {
+    public void scan_button_on_click(View view) {
+        if (isBleDeviceScanning) {
             ble_device_stop_scan();
-        }
-        else
-        {
+        } else {
             ble_device_start_scan();
         }
     }
@@ -910,8 +907,7 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks, Sc
 
     @Override
     public void onItemClick(int position) {
-        if(isBleDeviceScanning)
-        {
+        if (isBleDeviceScanning) {
             ble_device_stop_scan();
         }
         ble_device_connect(scanResultArrayList.get(position).getDevice().getAddress());
@@ -939,5 +935,80 @@ public class MainActivity extends AppCompatActivity implements FluxCallbacks, Sc
                 show_alert_dialog_confirm(this, "Location setting is disable, the ble scanning is not supported.");
             }
         } else super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    final static String GOOGLE_IOT_CORE_DEVICE_ID_FOR_TEST = "TEST"; //"esp32_814FDC";
+    final static String GOOGLE_IOT_CORE_PUBLIC_KEY_PATH = "rsa_public.pem";
+    final static String GOOGLE_IOT_CORE_PROJECT_ID = "miles-simple-iot";
+    final static String GOOGLE_IOT_CORE_CLOUD_REGION = "europe-west1";
+    final static String GOOGLE_IOT_CORE_REGISTRY_NAME = "iot-registry";
+    final static String APP_NAME = "com.example.myapplication";
+
+    /** Create a device that is authenticated using RS256. */
+    public static void createDeviceWithRs256(
+            String deviceId,
+            String certificateFilePath,
+            String projectId,
+            String cloudRegion,
+            String registryName)
+            throws GeneralSecurityException, IOException {
+
+        // Now system will be crashed when calling "createScoped", please check stack-overflow for reason
+        // https://stackoverflow.com/questions/60314779/how-to-creating-device-to-google-iot-core-by-android-application
+
+        GoogleCredential credential =
+                GoogleCredential.getApplicationDefault().createScoped(CloudIotScopes.all());
+
+        /*
+        JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+        HttpRequestInitializer init = new RetryHttpInitializerWrapper(credential);
+        final CloudIot service =
+                new CloudIot.Builder(GoogleNetHttpTransport.newTrustedTransport(), jsonFactory, init)
+                        .setApplicationName(APP_NAME)
+                        .build();
+
+        final String registryPath =
+                String.format(
+                        "projects/%s/locations/%s/registries/%s", projectId, cloudRegion, registryName);
+
+        PublicKeyCredential publicKeyCredential = new PublicKeyCredential();
+        String key = Files.toString(new File(certificateFilePath), Charsets.UTF_8);
+        publicKeyCredential.setKey(key);
+        publicKeyCredential.setFormat("RSA_X509_PEM");
+
+        DeviceCredential devCredential = new DeviceCredential();
+        devCredential.setPublicKey(publicKeyCredential);
+
+        System.out.println("Creating device with id: " + deviceId);
+        Device device = new Device();
+        device.setId(deviceId);
+        device.setCredentials(Arrays.asList(devCredential));
+        Device createdDevice =
+                service
+                        .projects()
+                        .locations()
+                        .registries()
+                        .devices()
+                        .create(registryPath, device)
+                        .execute();
+
+        System.out.println("Created device: " + createdDevice.toPrettyString());
+
+         */
+    }
+
+    public void register_button_on_click(View view) {
+        try {
+            createDeviceWithRs256(
+                    GOOGLE_IOT_CORE_DEVICE_ID_FOR_TEST,
+                    GOOGLE_IOT_CORE_PUBLIC_KEY_PATH,
+                    GOOGLE_IOT_CORE_PROJECT_ID,
+                    GOOGLE_IOT_CORE_CLOUD_REGION,
+                    GOOGLE_IOT_CORE_REGISTRY_NAME);
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
