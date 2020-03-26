@@ -75,18 +75,18 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/connect"
-                android:layout_width="wrap_content"
+                android:id="@+id/btn_softap"
+                android:layout_width="322dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Connect" />
+                android:text="SoftAP" />
 
             <Button
-                android:id="@+id/fanspeed"
-                android:layout_width="wrap_content"
+                android:id="@+id/btn_blescan"
+                android:layout_width="318dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="FanSpeed" />
+                android:text="BLE" />
 
         </LinearLayout>
 
@@ -104,7 +104,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"/>
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_speedup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Speed +" />
+
+                <Button
+                    android:id="@+id/btn_speeddown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Speed -" />
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
